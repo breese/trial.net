@@ -94,13 +94,13 @@ auto get_context(T& t) -> io_context&
 }
 
 template <>
-auto get_context(executor& t) -> io_context&
+inline auto get_context(executor& t) -> io_context&
 {
     return static_cast<io_context&>(t);
 }
 
 template <>
-auto get_context(const executor& t) -> io_context&
+inline auto get_context(const executor& t) -> io_context&
 {
     return static_cast<io_context&>(t);
 }
@@ -112,7 +112,7 @@ auto get_executor(T& t) -> executor
 }
 
 template <>
-auto get_executor(io_context& t) -> executor
+inline auto get_executor(io_context& t) -> executor
 {
     return executor(t);
 }
