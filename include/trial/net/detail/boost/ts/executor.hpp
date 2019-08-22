@@ -12,6 +12,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <boost/asio/ts/executor.hpp>
+#include <boost/asio/async_result.hpp>
 
 namespace trial
 {
@@ -23,6 +24,17 @@ using executor = boost::asio::executor;
 using boost::asio::defer;
 using boost::asio::dispatch;
 using boost::asio::post;
+
+//-----------------------------------------------------------------------------
+
+template <typename CompletionToken, typename Signature>
+using async_result = boost::asio::async_result<typename std::decay<CompletionToken>::type, Signature>;
+
+template <typename CompletionToken, typename Signature>
+using async_result_t = typename async_result<CompletionToken, Signature>::return_type;
+
+template <typename CompletionToken, typename Signature>
+using async_completion = boost::asio::async_completion<CompletionToken, Signature>;
 
 //-----------------------------------------------------------------------------
 // Extensions

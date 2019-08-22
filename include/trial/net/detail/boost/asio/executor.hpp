@@ -11,6 +11,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <boost/asio/async_result.hpp>
 #include <trial/net/detail/boost/asio/execution_context.hpp>
 
 namespace trial
@@ -69,6 +70,28 @@ public:
 
 private:
     execution_context *excontext = nullptr;
+};
+
+//-----------------------------------------------------------------------------
+
+template <typename CompletionToken, typename Signature>
+using async_result = boost::asio::async_result<typename boost::asio::handler_type<CompletionToken, Signature>::type>;
+
+template <typename CompletionToken, typename Signature>
+using async_result_t = typename async_result<CompletionToken, Signature>::type;
+
+template <typename CompletionToken, typename Signature>
+struct async_completion
+{
+    async_completion(CompletionToken& token)
+        : completion_handler(token),
+          result(completion_handler)
+    {
+    }
+
+    using handler_type = typename boost::asio::handler_type<CompletionToken, Signature>::type;
+    handler_type completion_handler;
+    boost::asio::async_result<handler_type> result;
 };
 
 //-----------------------------------------------------------------------------
