@@ -1,5 +1,5 @@
-#ifndef TRIAL_NET_IO_CONTEXT_HPP
-#define TRIAL_NET_IO_CONTEXT_HPP
+#ifndef TRIAL_NET_DETAIL_CONFIG_HPP
+#define TRIAL_NET_DETAIL_CONFIG_HPP
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -11,12 +11,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <trial/net/detail/config.hpp>
-
-#if defined(TRIAL_NET_USE_BOOST_TS)
-# include <trial/net/detail/boost/ts/io_context.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 106600
+# define TRIAL_NET_USE_BOOST_TS
 #else
-# include <trial/net/detail/boost/asio/io_context.hpp>
+# define TRIAL_NET_USE_BOOST_ASIO
 #endif
 
-#endif // TRIAL_NET_IO_CONTEXT_HPP
+#endif // TRIAL_NET_DETAIL_CONFIG_HPP

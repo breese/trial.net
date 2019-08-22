@@ -1,5 +1,5 @@
-#ifndef TRIAL_NET_IO_CONTEXT_HPP
-#define TRIAL_NET_IO_CONTEXT_HPP
+#ifndef TRIAL_NET_DETAIL_BOOST_ASIO_EXECUTION_CONTEXT_HPP
+#define TRIAL_NET_DETAIL_BOOST_ASIO_EXECUTION_CONTEXT_HPP
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -11,12 +11,16 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <trial/net/detail/config.hpp>
+#include <boost/asio/io_service.hpp>
 
-#if defined(TRIAL_NET_USE_BOOST_TS)
-# include <trial/net/detail/boost/ts/io_context.hpp>
-#else
-# include <trial/net/detail/boost/asio/io_context.hpp>
-#endif
+namespace trial
+{
+namespace net
+{
 
-#endif // TRIAL_NET_IO_CONTEXT_HPP
+using execution_context = boost::asio::io_service;
+
+} // namespace net
+} // namespace trial
+
+#endif // TRIAL_NET_DETAIL_BOOST_ASIO_EXECUTION_CONTEXT_HPP

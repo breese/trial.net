@@ -1,5 +1,5 @@
-#ifndef TRIAL_NET_IO_CONTEXT_HPP
-#define TRIAL_NET_IO_CONTEXT_HPP
+#ifndef TRIAL_NET_EXECUTOR_HPP
+#define TRIAL_NET_EXECUTOR_HPP
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -14,9 +14,9 @@
 #include <trial/net/detail/config.hpp>
 
 #if defined(TRIAL_NET_USE_BOOST_TS)
-# include <trial/net/detail/boost/ts/io_context.hpp>
+# include <trial/net/detail/boost/ts/executor.hpp>
 #else
-# include <trial/net/detail/boost/asio/io_context.hpp>
+# include <trial/net/detail/boost/asio/executor.hpp>
 #endif
 
-#endif // TRIAL_NET_IO_CONTEXT_HPP
+#endif // TRIAL_NET_EXECUTOR_HPP
