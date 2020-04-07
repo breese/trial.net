@@ -12,7 +12,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <boost/version.hpp>
-#if BOOST_VERSION >= 106600
+#if BOOST_VERSION >= 107000
 # define TRIAL_NET_USE_BOOST_TS
 #else
 # define TRIAL_NET_USE_BOOST_ASIO
