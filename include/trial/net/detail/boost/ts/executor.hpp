@@ -43,10 +43,44 @@ using async_completion = boost::asio::async_completion<CompletionToken, Signatur
 namespace extension
 {
 
-template <typename T>
-auto get_executor(T&& t) -> decltype(t.get_executor())
+namespace detail
 {
-    return t.get_executor();
+template <typename T>
+constexpr auto select_getter(int) -> decltype(std::declval<T>().get_executor(), int())
+{
+    return 1;
+}
+
+template <typename T>
+constexpr bool select_getter(...)
+{
+    return 0;
+}
+
+template <typename T, int>
+struct overloader
+{
+    static executor get_executor(T&& t)
+    {
+        return executor(std::forward<decltype(t)>(t));
+    }
+};
+
+template <typename T>
+struct overloader<T, 1>
+{
+    static executor get_executor(T&& t)
+    {
+        return t.get_executor();
+    }
+};
+
+} // namespace detail
+
+template <typename T>
+auto get_executor(T&& t) -> executor
+{
+    return detail::overloader<T, detail::select_getter<T>(0)>::get_executor(std::forward<decltype(t)>(t));
 }
 
 } // namespace extension
