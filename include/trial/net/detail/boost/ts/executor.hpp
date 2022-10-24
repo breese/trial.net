@@ -19,7 +19,13 @@ namespace trial
 namespace net
 {
 
-using executor = boost::asio::executor;
+#if BOOST_VERSION >= 107400
+	// V1.74.0 - The any_io_executor type alias has been introduced as the default runtime-polymorphic executor for all I/O objects. 
+    using executor = boost::asio::any_io_executor;
+#else
+    using executor = boost::asio::executor;
+#endif
+
 
 using boost::asio::defer;
 using boost::asio::dispatch;
